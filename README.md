@@ -19,7 +19,7 @@ This project features a sophisticated chatbot designed to recommend homeopathy m
 ## Usage
 Users can interact with the chatbot by entering symptoms or diseases, and the chatbot will generate appropriate homeopathy medicine recommendations based on the input.
 
-## code
+## Code
 import os
 import gradio as gr
 from langchain.chat_models import ChatOpenAI
@@ -27,11 +27,11 @@ from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferMemory
 
-# Set OpenAI API key
+#Set OpenAI API key
 OPENAI_API_KEY = "your_openai_api_key_here"
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
-# Define the template
+#Define the template
 template = """You are a helpful assistant that specializes in answering questions related to homeopathy medicines.
 If the question is not related to homeopathy, apologize and inform the user that you can only answer questions about homeopathy medicines.
 {chat_history}
@@ -44,7 +44,7 @@ prompt = PromptTemplate(
 
 memory = ConversationBufferMemory(memory_key="chat_history")
 
-# Define the LLM Chain
+#Define the LLM Chain
 llm_chain = LLMChain(
     llm=ChatOpenAI(temperature=0.5, model_name="gpt-3.5-turbo"),
     prompt=prompt,
@@ -52,7 +52,7 @@ llm_chain = LLMChain(
     memory=memory,
 )
 
-# Chatbot function
+#Chatbot function
 def get_text_response(user_message, history):
     if "homeopathy medicine" in user_message.lower():
         response = llm_chain.predict(user_message=user_message)
@@ -60,7 +60,7 @@ def get_text_response(user_message, history):
         response = "I can only provide information related to homeopathy medicines. Please provide a symptom or disease, and I will suggest a homeopathy medicine."
     return response
 
-# Launch Gradio app
+#Launch Gradio app
 demo = gr.ChatInterface(
     get_text_response, examples=[
         "Homeopathy Medicine for Cold",
